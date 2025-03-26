@@ -6,7 +6,7 @@
                 @csrf
                 <div>
                     <label for="team_id" class="block font-semibold text-gray-700">Selecciona un equip</label>
-                    <select name="team_id" id="team_id" class="border rounded-lg p-2 w-full" onchange="this.form.submit()">
+                    <select name="teamid" id="team_id" class="border rounded-lg p-2 w-full">
                         <option value="">Selecciona un equip</option>
                         @foreach ($teams as $team)
                             <option value="{{ $team->id }}">{{ $team->name }}</option>

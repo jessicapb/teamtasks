@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
-
+use App\Models\Task;
 
 class TaskController extends Controller
 {
@@ -13,9 +13,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $teams = Team::all(); 
-        return view('dashboard', compact('teams'));
+        $tasks = Task::all();
+        return view('task.showtasks', compact('tasks')); 
     }
+    
     
     /**
      * Show the form for creating a new resource.
@@ -36,23 +37,22 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'team_id' => 'required|exists:teams,id',
+            'teamid' => 'required|exists:teams,id',
             'start_date' => 'required|date',  
             'due_date' => 'nullable|date',  
-            'status' => 'required|in:pendiente,en_progreso,completada',
+            'status' => 'required|in:pendent,en_progres,completada',
         ]);
-    
-        // Crear la tarea
+
         Task::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'teamid' => $validated['team_id'],
+            'teamid' => $validated['teamid'],
             'start_date' => $validated['start_date'], 
             'due_date' => $validated['due_date'] ?? null,
             'status' => $validated['status'],
         ]);
         
-        return redirect()->route('tasks.create')->with('success', 'Tasca creada amb exit');
+        return redirect()->route('task.create')->with('success', 'Tasca creada amb exit');
     }   
     /**
      * Display the specified resource.

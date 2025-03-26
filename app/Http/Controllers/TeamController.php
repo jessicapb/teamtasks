@@ -13,7 +13,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all(); 
+        $teams = Team::all();
         return view('dashboard', compact('teams'));
     }
     

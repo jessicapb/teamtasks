@@ -15,14 +15,15 @@ Route::get('/index', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/tasks', [TaskController::class, 'index'])->name('task.index');
     Route::get('/dashboard', [TeamController::class, 'index'])->name('dashboard'); 
     Route::resource('member', MemberController::class);
     Route::resource('team', TeamController::class);
     Route::resource('task', TaskController::class);
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [TeamController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
